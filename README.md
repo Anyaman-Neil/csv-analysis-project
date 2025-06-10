@@ -10,6 +10,13 @@ A lightweight Python script that cleans education data, groups students by **eth
 - Demonstrates data cleaning, grouping, and aggregation in vanilla Python  
 - Helps you see how study habits and background relate to performance  
 
+## 🌟 Key Features
+
+- **Data Cleaning**: Handles missing values and inconsistent formats
+- **Demographic Analysis**: Groups students by ethnicity and study habits
+- **Score Calculation**: Computes individual averages and group averages of scores by study hours
+- **Lightweight**: Pure Python (no heavy dependencies)
+
 ## 🛠 Installation
 
 1. Clone the repo:

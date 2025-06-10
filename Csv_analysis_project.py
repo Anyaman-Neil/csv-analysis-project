@@ -10,6 +10,7 @@ with open(input_file, newline='') as csvfile:
     data = list(reader)    # read all rows
 
 cleaned_data = []
+
 for row in data:
     if '' in row or '0' in row:
         # Skip rows with missing or zero values
@@ -65,6 +66,7 @@ for row in grouped_data:
 header.extend(['Total Score', 'Average Score', 'Highest Score', 'Lowest Score'])
 
 # Step 5: Append calculated values to each row
+
 for i, row in enumerate(grouped_data):
     row.extend([
         str(totals[i]),
@@ -72,6 +74,7 @@ for i, row in enumerate(grouped_data):
         str(highs[i]),
         str(lows[i])
     ])
+
 al5=[]
 ag10=[]
 af5t10=[]
@@ -87,6 +90,7 @@ df5t10=[]
 el5=[]
 eg10=[]
 ef5t10=[]
+
 for row in grouped_data:
     eth_value = row[eth_index]
     stdh = header.index("WklyStudyHours")
@@ -134,7 +138,7 @@ for row in new_data:
     if '5 - 10' in row[stdh]:
         row[stdh]='5 to 10'
 
-Total=header.index("Total Score")
+avg=header.index("Average Score")
 stdh = header.index("WklyStudyHours")
 total = {
     'group A': {'<5': 0, '5-10': 0, '>10': 0},
@@ -142,12 +146,13 @@ total = {
     'group C': {'<5': 0, '5-10': 0, '>10': 0},
     'group D': {'<5': 0, '5-10': 0, '>10': 0},
     'group E': {'<5': 0, '5-10': 0, '>10': 0}}
+
 l5=[]
 g10=[]
 f5t10=[]
 for row in new_data:
     hour=row[stdh]
-    t=float(row[Total])
+    t=float(row[avg])
     eth = row[eth_index]
     if eth in total:
         if '< 5' in hour:
@@ -156,19 +161,54 @@ for row in new_data:
             total[eth]['>10'] += t
         else:
             total[eth]['5-10'] += t
+
 for group in total:
     l5.append(total[group]['<5'])
     f5t10.append(total[group]['5-10'])
     g10.append(total[group]['>10'])
 groups = list(total.keys())
+
+c5 = {'group A': 0, 'group B': 0, 'group C': 0, 'group D': 0, 'group E': 0}
+c5_10 = {'group A': 0, 'group B': 0, 'group C': 0, 'group D': 0, 'group E': 0}
+c10 = {'group A': 0, 'group B': 0, 'group C': 0, 'group D': 0, 'group E': 0}
+
+for row in new_data:
+    ethnic = row[eth_index]   # e.g. 'A', 'B', ...
+    study_hours = row[stdh]   # e.g. '<5', '>10', '5-10'
+    
+    if study_hours == '< 5':
+        c5[ethnic] += 1
+    elif study_hours == '> 10':
+        c10[ethnic] += 1
+    elif study_hours == '5 to 10':
+        c5_10[ethnic] += 1
+
+#counts for each study hour group
+c5c=[]
+c10c=[]
+c5_10c=[]
+
+for group in c5:
+    c5c.append(c5[group])
+
+for group in c10:
+    c10c.append(c10[group])
+
+for group in c5_10:
+    c5_10c.append(c5_10[group])
+
 for i in range(len(new_data)):
     if i < len(groups):
-        new_data[i].extend([groups[i], l5[i], f5t10[i], g10[i]])
+        new_data[i].extend([groups[i], l5[i]/c5c[i], f5t10[i]/c5_10c[i], g10[i]/c10c[i]])
     else:
         new_data[i].extend(['', '', '', ''])
-header.extend(['Groups','Stdh <5', 'Stdh 5-10', 'Stdh >10'])
+
+header.extend(['Groups','Avg. Score for Study Hour <5', 'Avg. Score for Study Hour 5-10', 'Avg. Score for Study Hour >10'])
+
 # Step 6: Write the final cleaned, grouped, and enriched data to new CSV
+
 output_file = r'C:\Users\DELL\OneDrive\Desktop\Data ML\New_Data_1.csv'
+
 with open(output_file, mode='w', newline='') as outfile:
     writer = csv.writer(outfile)
     writer.writerow(header)
