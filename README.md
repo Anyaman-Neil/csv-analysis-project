@@ -4,131 +4,92 @@ A Python-based project that cleans educational data, engineers new features, gro
 
 1. 🎯 Project Purpose
 
-Work with a real-world educational dataset
-
-Practice data cleaning and feature engineering
-
-Explore how study hours relate to academic performance (descriptively)
-
-Visualize patterns using clear statistical graphics
+   1. Work with a real-world educational dataset
+   2. Practice data cleaning and feature engineering
+   3. Explore how study hours relate to academic performance (descriptively)
+   4. Visualize patterns using clear statistical graphics
 
 2. 🛠 What the Script Does
 
-Removes rows with missing or invalid values
+   1. Removes rows with missing or invalid values
+   2. Computes per-student:
 
-Computes per-student:
+      * Total Score
+      * Average Score
+      * Highest and Lowest Subject Scores
+   3. Groups students by:
 
-Total Score
+      * Ethnic Group (A–E)
+      * Weekly Study Hours (<5, 5–10, >10)
+   4. Computes group-wise average scores
+   5. Exports enriched data to CSV 
+   6. Generates 5 visualizations:
 
-Average Score
-
-Highest and Lowest Subject Scores
-
-Groups students by:
-
-Ethnic Group (A–E)
-
-Weekly Study Hours (<5, 5–10, >10)
-
-Computes group-wise average scores
-
-Exports enriched data to CSV (original logic preserved)
-
-Generates 5 visualizations:
-
-Students by study hours
-
-Average score by study hours
-
-Average score by ethnic group × study hours
-
-Ethnic group distribution (pie chart)
-
-Students by study hours for each ethnic group
+      1. Students by study hours
+      2. Average score by study hours
+      3. Average score by ethnic group × study hours
+      4. Ethnic group distribution (pie chart)
+      5. Students by study hours for each ethnic group
 
 3. 📈 Visualizations Included
 
-Bar charts for comparisons
+   1. Bar charts for comparisons
+   2. Pie chart for group proportions
+   3. Consistent color scheme:
 
-Pie chart for group proportions
-
-Consistent color scheme:
-
-<5 → Blue
-
-5–10 → Orange
-
->10 → Green
-
-Legends include student counts
-
-All figures display together at the end of script execution
+      * <5 → Blue
+      * 5–10 → Orange
+      * >10 → Green
+   4. Legends include student counts
+   5. All figures are displayed together at the end of script execution
 
 4. 🔍 Key Observations (From Graphs)
 
-Students studying more than 10 hours per week generally show the highest average scores.
+   1. Students studying more than 10 hours per week generally show the highest average scores.
+   2. The 5–10 hour group shows moderate and stable performance.
+   3. Students studying less than 5 hours consistently show the lowest averages.
+   4. This pattern appears across all ethnic groups.
+   5. Most students fall into the 5–10 hour study category.
+   6. Differences between ethnic groups exist, but the effect of study hours is more consistent than ethnic-group differences.
+   7. Each ethnic group follows a similar internal pattern:
 
-The 5–10 hour group shows moderate and stable performance.
+      * <5 → lowest
+      * 5–10 → middle
+      * >10 → highest
 
-Students studying less than 5 hours consistently show the lowest averages.
-
-This pattern appears across all ethnic groups.
-
-Most students fall into the 5–10 hour study category.
-
-Differences between ethnic groups exist, but the effect of study hours is more consistent than ethnic-group differences.
-
-Each ethnic group follows a similar internal pattern:
-
-<5 → lowest
-
-5–10 → middle
-
->10 → highest
-
-These are descriptive patterns only. No causal or statistically significant claims are made.
+   These are descriptive patterns only. No causal or statistically significant claims are made.
 
 5. ⚠️ Limitations
 
-No inferential statistical tests were performed
-
-No causal relationship is claimed
-
-Other variables (family background, test prep, etc.) were not controlled
-
-Results depend on the dataset after cleaning
+   1. No inferential statistical tests were performed
+   2. No causal relationship is claimed
+   3. Other variables (family background, test prep, etc.) were not controlled
+   4. Results depend on the dataset after cleaning
 
 6. ▶️ How to Run
 
-Clone the repository
+   1. Clone the repository
 
-Run:
+   2. Run:
 
-python Csv_analysis_project.py
+      python Csv_analysis_project.py
 
+   3. Output:
 
-Output:
-
-Enriched CSV: New_Data_1.csv
-
-5 figures displayed together
+      * Enriched CSV: New_Data_1.csv
+      * 5 figures displayed together
 
 7. 📁 Tools & Libraries
 
-Python 3
+   1. Python 3
+   2. Libraries:
 
-Libraries:
-
-csv
-
-collections
-
-matplotlib
+      * csv
+      * collections
+      * matplotlib
 
 8. 📌 Future Scope
 
-Save figures as PNG for README
-
-Add inferential tests (correlation, ANOVA)
-
-Extend analysis using regression models
+   1. Save figures as PNG for README
+   2. Add inferential tests (correlation, ANOVA)
+   3. Extend analysis using regression models
