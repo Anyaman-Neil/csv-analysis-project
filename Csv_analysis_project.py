@@ -1,5 +1,6 @@
 import csv
 from collections import Counter
+import matplotlib.pyplot as plt   # ADDED ONLY
 
 input_file = r'C:\Users\DELL\OneDrive\Desktop\Data ML\Expanded_data_with_more_features.csv'
 
@@ -14,8 +15,9 @@ cleaned_data = []
 for row in data:
     if '' in row or '0' in row:
         # Skip rows with missing or zero values
-        continue     # By using 'continue', the loop ignores such data and proceeds to the next item without processing the current one.
+        continue
     cleaned_data.append(row)
+
 # Step 2: Group rows based on EthnicGroup
 eth_index = header.index("EthnicGroup")
 group_A = []
@@ -66,7 +68,6 @@ for row in grouped_data:
 header.extend(['Total Score', 'Average Score', 'Highest Score', 'Lowest Score'])
 
 # Step 5: Append calculated values to each row
-
 for i, row in enumerate(grouped_data):
     row.extend([
         str(totals[i]),
@@ -129,6 +130,7 @@ for row in grouped_data:
             eg10.append(row)
         else:
             ef5t10.append(row) 
+
 new_data=[]
 ar=al5+ag10+af5t10+bl5+bg10+bf5t10+cl5+cg10+cf5t10+dl5+dg10+df5t10+el5+eg10+ef5t10
 new_data.extend(ar)
@@ -173,8 +175,8 @@ c5_10 = {'group A': 0, 'group B': 0, 'group C': 0, 'group D': 0, 'group E': 0}
 c10 = {'group A': 0, 'group B': 0, 'group C': 0, 'group D': 0, 'group E': 0}
 
 for row in new_data:
-    ethnic = row[eth_index]   # e.g. 'A', 'B', ...
-    study_hours = row[stdh]   # e.g. '<5', '>10', '5-10'
+    ethnic = row[eth_index]
+    study_hours = row[stdh]
     
     if study_hours == '< 5':
         c5[ethnic] += 1
@@ -190,10 +192,8 @@ c5_10c=[]
 
 for group in c5:
     c5c.append(c5[group])
-
 for group in c10:
     c10c.append(c10[group])
-
 for group in c5_10:
     c5_10c.append(c5_10[group])
 
@@ -206,7 +206,6 @@ for i in range(len(new_data)):
 header.extend(['Groups','Avg. Score for Study Hour <5', 'Avg. Score for Study Hour 5-10', 'Avg. Score for Study Hour >10'])
 
 # Step 6: Write the final cleaned, grouped, and enriched data to new CSV
-
 output_file = r'C:\Users\DELL\OneDrive\Desktop\Data ML\New_Data_1.csv'
 
 with open(output_file, mode='w', newline='') as outfile:
@@ -215,3 +214,77 @@ with open(output_file, mode='w', newline='') as outfile:
     writer.writerows(new_data)
 
 print(f"✅ Data processed and saved to: {output_file}")
+
+# ============================================================
+# 📊 ADDED SECTION ONLY – DOES NOT AFFECT CSV OUTPUT
+# ============================================================
+
+groups = list(total.keys())
+
+n_lt5 = sum(c5.values())
+n_5_10 = sum(c5_10.values())
+n_gt10 = sum(c10.values())
+
+avg_lt5 = sum(total[g]['<5'] for g in groups) / n_lt5
+avg_5_10 = sum(total[g]['5-10'] for g in groups) / n_5_10
+avg_gt10 = sum(total[g]['>10'] for g in groups) / n_gt10
+
+# Figure 1
+plt.figure()
+plt.bar('<5', n_lt5, color='tab:blue', label=f'<5 hrs (n={n_lt5})')
+plt.bar('5–10', n_5_10, color='tab:orange', label=f'5–10 hrs (n={n_5_10})')
+plt.bar('>10', n_gt10, color='tab:green', label=f'>10 hrs (n={n_gt10})')
+plt.title('Distribution of Students by Weekly Study Hours')
+plt.xlabel('Weekly Study Hours')
+plt.ylabel('Number of Students')
+plt.legend()
+
+# Figure 2
+plt.figure()
+plt.bar('<5', avg_lt5, color='tab:blue', label=f'<5 hrs (n={n_lt5})')
+plt.bar('5–10', avg_5_10, color='tab:orange', label=f'5–10 hrs (n={n_5_10})')
+plt.bar('>10', avg_gt10, color='tab:green', label=f'>10 hrs (n={n_gt10})')
+plt.title('Average Academic Score by Weekly Study Hours')
+plt.xlabel('Weekly Study Hours')
+plt.ylabel('Average Score')
+plt.legend()
+
+# Figure 3
+avg_lt5_g = [total[g]['<5']/c5[g] if c5[g] else 0 for g in groups]
+avg_5_10_g = [total[g]['5-10']/c5_10[g] if c5_10[g] else 0 for g in groups]
+avg_gt10_g = [total[g]['>10']/c10[g] if c10[g] else 0 for g in groups]
+
+x = range(len(groups))
+plt.figure()
+plt.bar(x, avg_lt5_g, color='tab:blue', label='<5 hrs')
+plt.bar(x, avg_5_10_g, bottom=avg_lt5_g, color='tab:orange', label='5–10 hrs')
+plt.bar(x, avg_gt10_g,
+        bottom=[avg_lt5_g[i]+avg_5_10_g[i] for i in range(len(groups))],
+        color='tab:green', label='>10 hrs')
+plt.xticks(x, groups)
+plt.title('Average Scores by Ethnic Group and Study Hours')
+plt.xlabel('Ethnic Group')
+plt.ylabel('Average Score')
+plt.legend()
+
+# Figure 4
+ethnic_counts = [c5[g]+c5_10[g]+c10[g] for g in groups]
+plt.figure()
+plt.pie(ethnic_counts,
+        labels=[f'{g} (n={ethnic_counts[i]})' for i,g in enumerate(groups)],
+        autopct='%1.1f%%')
+plt.title('Student Distribution by Ethnic Group')
+
+# Figure 5
+plt.figure()
+width = 0.25
+plt.bar([i-width for i in x], [c5[g] for g in groups], width, color='tab:blue', label='<5 hrs')
+plt.bar(x, [c5_10[g] for g in groups], width, color='tab:orange', label='5–10 hrs')
+plt.bar([i+width for i in x], [c10[g] for g in groups], width, color='tab:green', label='>10 hrs')
+plt.xticks(x, groups)
+plt.title('Number of Students by Study Hours for Each Ethnic Group')
+plt.xlabel('Ethnic Group')
+plt.ylabel('Number of Students')
+plt.legend()
+
+plt.show()
