@@ -37,9 +37,9 @@ A Python-based project that cleans educational data, engineers new features, gro
    2. Pie chart for group proportions
    3. Consistent color scheme:
 
-      * <5 → Blue
-      * 5–10 → Orange
-      * >10 → Green
+      * "<5" → Blue
+      * "5–10" → Orange
+      * ">10" → Green
    4. Legends include student counts
    5. All figures are displayed together at the end of script execution
 
@@ -53,9 +53,9 @@ A Python-based project that cleans educational data, engineers new features, gro
    6. Differences between ethnic groups exist, but the effect of study hours is more consistent than ethnic-group differences.
    7. Each ethnic group follows a similar internal pattern:
 
-      * <5 → lowest
-      * 5–10 → middle
-      * >10 → highest
+      * "<5" → lowest
+      * "5–10" → middle
+      * ">10" → highest
 
    These are descriptive patterns only. No causal or statistically significant claims are made.
 
