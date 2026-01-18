@@ -1,8 +1,8 @@
 📊 CSV Analysis Project – Student Performance Insights
 
-A Python-based project that cleans educational data, engineers new features, groups students by ethnic group and weekly study hours, computes performance metrics, and visualizes descriptive patterns using bar charts and pie charts.
+A Python-based project that cleans educational data, engineers new features, groups students by ethnic group and weekly study hours, computes performance metrics, and visualizes descriptive patterns using bar charts and a pie chart.
 
-🚀 Project Purpose
+1. 🎯 Project Purpose
 
 Work with a real-world educational dataset
 
@@ -12,7 +12,7 @@ Explore how study hours relate to academic performance (descriptively)
 
 Visualize patterns using clear statistical graphics
 
-🛠 What the Script Does
+2. 🛠 What the Script Does
 
 Removes rows with missing or invalid values
 
@@ -32,7 +32,7 @@ Weekly Study Hours (<5, 5–10, >10)
 
 Computes group-wise average scores
 
-Exports enriched data to CSV (unchanged logic)
+Exports enriched data to CSV (original logic preserved)
 
 Generates 5 visualizations:
 
@@ -46,7 +46,7 @@ Ethnic group distribution (pie chart)
 
 Students by study hours for each ethnic group
 
-📈 Visualizations Included
+3. 📈 Visualizations Included
 
 Bar charts for comparisons
 
@@ -62,9 +62,9 @@ Consistent color scheme:
 
 Legends include student counts
 
-All figures display together at the end of script execution.
+All figures display together at the end of script execution
 
-🔍 Key Observations (From Graphs)
+4. 🔍 Key Observations (From Graphs)
 
 Students studying more than 10 hours per week generally show the highest average scores.
 
@@ -72,42 +72,63 @@ The 5–10 hour group shows moderate and stable performance.
 
 Students studying less than 5 hours consistently show the lowest averages.
 
-This pattern is visible across all ethnic groups, suggesting study time has a strong descriptive association with performance.
+This pattern appears across all ethnic groups.
 
 Most students fall into the 5–10 hour study category.
 
 Differences between ethnic groups exist, but the effect of study hours is more consistent than ethnic-group differences.
 
-Each ethnic group shows a similar internal pattern:
+Each ethnic group follows a similar internal pattern:
 
-<5 lowest
+<5 → lowest
 
-5–10 middle
+5–10 → middle
 
->10 highest
+>10 → highest
 
 These are descriptive patterns only. No causal or statistically significant claims are made.
 
-⚠️ Limitations
+5. ⚠️ Limitations
 
-No hypothesis testing or inferential statistics
+No inferential statistical tests were performed
 
-No causality claimed
+No causal relationship is claimed
 
-Other variables (family background, test prep, etc.) not controlled
+Other variables (family background, test prep, etc.) were not controlled
 
-Results depend on dataset quality after cleaning
+Results depend on the dataset after cleaning
 
-▶️ How to Run
+6. ▶️ How to Run
+
+Clone the repository
+
+Run:
+
 python Csv_analysis_project.py
 
 
-Generates enriched CSV: New_Data_1.csv
+Output:
 
-Opens 5 figures together
+Enriched CSV: New_Data_1.csv
 
-📁 Tools & Libraries Used
+5 figures displayed together
+
+7. 📁 Tools & Libraries
 
 Python 3
 
-Libraries: csv, collections, matplotlib
+Libraries:
+
+csv
+
+collections
+
+matplotlib
+
+8. 📌 Future Scope
+
+Save figures as PNG for README
+
+Add inferential tests (correlation, ANOVA)
+
+Extend analysis using regression models
